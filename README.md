@@ -43,7 +43,6 @@ A aplicação tem documentação via Swagger na rota "http://localhost:8080/api"
 
 [![Typescript][Typescript.org]][Typescript-url]
 [![Node][Node.org]][Node-url]
-[![MongoDB][mongodb.com]][MongoDB-url]
 [![Prettier][prettier.io]][Prettier-url]
 [![Eslint][eslint.org]][Eslint-url]
 [![Aws][aws.com]][aws-url]
@@ -59,9 +58,6 @@ A aplicação tem documentação via Swagger na rota "http://localhost:8080/api"
 
 [Typescript.org]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
 [Typescript-url]: https://www.typescriptlang.org
-
-[mongodb.com]: https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white
-[MongoDB-url]: https://www.mongodb.com/
 
 [eslint.org]: https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white
 [Eslint-url]: https://eslint.org/
