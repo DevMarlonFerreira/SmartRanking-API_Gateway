@@ -1,11 +1,11 @@
 <a name="readme-top"></a>
 
-<h1 align="center">Smartranking - Api gateway</h1>
+<h1 align="center">SmartRanking-API_Gateway</h1>
 
 <!-- ABOUT THE PROJECT -->
 <h2 tabindex="-1" dir="auto"><a id="user-content--about-the-project" class="anchor" aria-hidden="true" tabindex="-1" href="#about-the-project">🔭 About The Project 🔭</h2>
 
-Api-gateway da aplicação Smartranking.
+Api-gateway da aplicação SmartRanking.
 
 <!-- GETTING STARTED -->
 <h2 tabindex="-1" dir="auto"><a id="getting-started" class="anchor" aria-hidden="true" tabindex="-1" href="#getting-started">🚀 Getting Started 🚀</h2>
@@ -23,7 +23,7 @@ Api-gateway da aplicação Smartranking.
 
 1. Clone o repositório
    ```sh
-   git clone https://github.com/DevMarlonFerreira/smartbackend-api-gateway
+   git clone https://github.com/DevMarlonFerreira/SmartRanking-API_Gateway
    ```
 2. Instale os NPM packages
    ```sh
@@ -35,7 +35,7 @@ Api-gateway da aplicação Smartranking.
 
 1 - Executar no terminal na raiz do projeto o comando " npm run start:dev".
 
-2 - Abrir o navegador na URL "http://localhost:8080/".
+2 - Consumir na porta "8080".
 
 A aplicação tem documentação via Swagger na rota "http://localhost:8080/api".
 
