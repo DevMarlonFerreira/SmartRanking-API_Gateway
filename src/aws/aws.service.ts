@@ -1,11 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common';
 import * as AWS from 'aws-sdk';
-import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class AwsService {
   private logger = new Logger(AwsService.name);
 
-  constructor(private readonly configService: ConfigService) {}
+  constructor() {}
 
   public async uploadArquivo(file: any, id: string) {
     // TODO @deprecated - accessKeyId secretAccessKey

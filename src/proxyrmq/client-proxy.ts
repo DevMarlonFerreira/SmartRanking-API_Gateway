@@ -4,11 +4,10 @@ import {
   Transport,
 } from '@nestjs/microservices';
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class ClientProxySmartRanking {
-  constructor(private readonly configService: ConfigService) {}
+  constructor() {}
 
   getClientProxyAdminBackendInstance(): ClientProxy {
     return ClientProxyFactory.create({
