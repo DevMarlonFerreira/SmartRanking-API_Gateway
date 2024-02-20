@@ -12,35 +12,35 @@ import {
   Logger,
   BadRequestException,
 } from '@nestjs/common';
+import { lastValueFrom } from 'rxjs';
 import { CriarDesafioDto } from './dtos/criar-desafio.dto';
 import { DesafioStatusValidacaoPipe } from './pipes/desafio-status-validation.pipe';
 import { AtribuirDesafioPartidaDto } from './dtos/atribuir-desafio-partida.dto';
 import { AtualizarDesafioDto } from './dtos/atualizar-desafio.dto';
-import { ClientProxySmartRanking } from '../proxyrmq/client-proxy';
+import { JogadoresCategoriasProxyInstance } from '../proxyrmq/jogadores_categorias-proxy';
+import { DesafiosProxyInstance } from '../proxyrmq/desafios-proxy';
 import { Jogador } from '../jogadores/interfaces/jogador.interface';
 import { Desafio } from '../desafios/interfaces/desafio.interface';
 import { DesafioStatus } from './desafio-status.enum';
 import { Partida } from './interfaces/partida.interface';
-import { lastValueFrom } from 'rxjs';
 
 @Controller('api/v1/desafios')
 export class DesafiosController {
-  constructor(private clientProxySmartRanking: ClientProxySmartRanking) {}
+  constructor() {}
 
   private readonly logger = new Logger(DesafiosController.name);
 
-  private clientDesafios =
-    this.clientProxySmartRanking.getClientProxyDesafiosInstance();
+  private clientDesafios = DesafiosProxyInstance.getInstance();
 
-  private clientAdminBackend =
-    this.clientProxySmartRanking.getClientProxyAdminBackendInstance();
+  private clientJogadoresCategorias =
+    JogadoresCategoriasProxyInstance.getInstance();
 
   @Post()
   @UsePipes(ValidationPipe)
   async criarDesafio(@Body() criarDesafioDto: CriarDesafioDto) {
     this.logger.log(`criarDesafioDto: ${JSON.stringify(criarDesafioDto)}`);
 
-    const jogadores$ = await this.clientAdminBackend.send(
+    const jogadores$ = this.clientJogadoresCategorias.send(
       'consultar-jogadores',
       '',
     );
@@ -81,7 +81,7 @@ export class DesafiosController {
       );
     }
 
-    const categoria$ = this.clientAdminBackend.send(
+    const categoria$ = this.clientJogadoresCategorias.send(
       'consultar-categorias',
       criarDesafioDto.categoria,
     );
@@ -99,7 +99,7 @@ export class DesafiosController {
   @Get()
   async consultarDesafios(@Query('idJogador') idJogador: string): Promise<any> {
     if (idJogador) {
-      const jogador$ = await this.clientAdminBackend.send(
+      const jogador$ = this.clientJogadoresCategorias.send(
         'consultar-jogadores',
         idJogador,
       );
@@ -141,7 +141,7 @@ export class DesafiosController {
       );
     }
 
-    await this.clientDesafios.emit('atualizar-desafio', {
+    this.clientDesafios.emit('atualizar-desafio', {
       id: _id,
       desafio: atualizarDesafioDto,
     });
@@ -187,7 +187,7 @@ export class DesafiosController {
     partida.jogadores = desafio.jogadores;
     partida.resultado = atribuirDesafioPartidaDto.resultado;
 
-    await this.clientDesafios.emit('criar-partida', partida);
+    this.clientDesafios.emit('criar-partida', partida);
   }
 
   @Delete('/:_id')
@@ -204,6 +204,6 @@ export class DesafiosController {
       throw new BadRequestException(`Desafio não cadastrado!`);
     }
 
-    await this.clientDesafios.emit('deletar-desafio', desafio);
+    this.clientDesafios.emit('deletar-desafio', desafio);
   }
 }

@@ -7,6 +7,8 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class ClientProxySmartRanking {
+  private static _instance: ClientProxySmartRanking;
+
   constructor() {}
 
   getClientProxyAdminBackendInstance(): ClientProxy {
@@ -31,5 +33,14 @@ export class ClientProxySmartRanking {
         queue: 'desafios',
       },
     });
+  }
+
+  static getInstance() {
+    if (this._instance) {
+      return this._instance;
+    }
+
+    this._instance = new ClientProxySmartRanking();
+    return this._instance;
   }
 }
