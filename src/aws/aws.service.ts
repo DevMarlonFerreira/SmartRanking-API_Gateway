@@ -27,7 +27,7 @@ export class AwsService {
       .putObject(params)
       .promise()
       .then(
-        (data) => {
+        () => {
           return {
             url: `https://${process.env.AWS_S2_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${urlKey}`,
           };
