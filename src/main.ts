@@ -1,6 +1,5 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import moment from 'moment-timezone';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
 import { AllExceptionsFilter } from './common/filters/http-exception.filter';
@@ -12,10 +11,6 @@ async function bootstrap() {
 
   app.useGlobalInterceptors(new LoggingInterceptor(), new TimeoutInterceptor());
   app.useGlobalFilters(new AllExceptionsFilter());
-
-  Date.prototype.toJSON = function (): any {
-    return moment.tz('America/Sao_Paulo').format('YYYY-MM-DD HH:mm:ss.SSS');
-  };
 
   app.use(helmet());
 
